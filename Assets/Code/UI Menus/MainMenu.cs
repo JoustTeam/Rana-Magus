@@ -5,9 +5,10 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
+//contains most of the functionality of the main menu
+
 public class MainMenu : MonoBehaviour
 {
-
     Resolution[] resolutions;
     public TMP_Dropdown resolutionDropdown;
     public AudioMixer audioMixer;
@@ -16,14 +17,17 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        //samples the native resolution
         resolutions = Screen.resolutions;
 
+        //resets the table
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
 
+        //sets the aspect ratio resolution from the unity engine prefix
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
@@ -38,7 +42,7 @@ public class MainMenu : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
     }
 
-
+    //sets the resolution after it gets chosen
     public void SetResolution(int ResolutionIndex)
     {
         Resolution resolution = resolutions[ResolutionIndex];
@@ -49,6 +53,8 @@ public class MainMenu : MonoBehaviour
     {
         StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
     }
+
+    //timer for the transition animation between levels
     IEnumerator LoadLevel(int levelIndex)
     {
         transition.SetTrigger("Start");
@@ -65,6 +71,9 @@ public class MainMenu : MonoBehaviour
         audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
     }
 
+
+    //curently unused will set the quality level once we make different
+    //hardware rendering levels
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);

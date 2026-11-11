@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
+//changes the language to the whole project to the chosen language
+
 public class LocaleSelector : MonoBehaviour
 {
     private bool active = false;
