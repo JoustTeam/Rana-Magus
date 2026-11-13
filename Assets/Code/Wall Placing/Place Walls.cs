@@ -55,6 +55,7 @@ public class PlaceWalls : MonoBehaviour
 
     void rayCastMousePos() //fires a ray from the mouse to the world
     {
+
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out hit)) //if there is as hit, set the mouse position to that location
