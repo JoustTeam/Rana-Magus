@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "RanaMagus.slnx"
+    "dotnet.defaultSolution": "Rana-Magus.slnx"
 }
