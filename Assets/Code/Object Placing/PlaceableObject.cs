@@ -3,7 +3,7 @@ using System.ComponentModel.Design.Serialization;
 using TMPro;
 using Unity.VectorGraphics;
 using Unity.VisualScripting;
-using UnityEditor.Search;
+//using UnityEditor.Search; //was causing errors so i'm hashing it out for now -Lucy
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI.Table;
