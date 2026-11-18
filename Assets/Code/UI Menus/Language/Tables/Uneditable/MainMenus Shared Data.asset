@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: play
     m_Metadata:
       m_Items: []
+  - m_Id: 2820875708690432
+    m_Key: new game
+    m_Metadata:
+      m_Items: []
   - m_Id: 11288080384
     m_Key: options
     m_Metadata:
@@ -28,7 +32,27 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 17553004064768
-    m_Key: Volume
+    m_Key: volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825461014097920
+    m_Key: general
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825463706841088
+    m_Key: display
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825465959182336
+    m_Key: audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825468224106496
+    m_Key: controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825470782631936
+    m_Key: accessibility
     m_Metadata:
       m_Items: []
   m_Metadata:

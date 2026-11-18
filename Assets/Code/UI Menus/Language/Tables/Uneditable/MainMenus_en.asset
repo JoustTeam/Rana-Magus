@@ -34,6 +34,30 @@ MonoBehaviour:
     m_Localized: Volume
     m_Metadata:
       m_Items: []
+  - m_Id: 2820875708690432
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825470782631936
+    m_Localized: Accessibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825468224106496
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825465959182336
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825463706841088
+    m_Localized: Display
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2825461014097920
+    m_Localized: General
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
