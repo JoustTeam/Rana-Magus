@@ -146,7 +146,7 @@ Transform:
   m_GameObject: {fileID: 203449003}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -716,7 +716,7 @@ Transform:
   m_GameObject: {fileID: 891709696}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.99357, y: 0.1, z: 1.07979}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1716,6 +1716,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TimeManager
   sun: {fileID: 1904095711}
   moon: {fileID: 203449006}
+  pathYaw: 0
+  rotateMoon: 1
   lightIntensityCurve:
     serializedVersion: 2
     m_Curve:
@@ -1741,9 +1743,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   maxSunIntensity: 1
-  maxMoonIntensity: 0.5
-  dayAmbientLight: {r: 0, g: 0, b: 0, a: 0}
-  nightAmbientLight: {r: 0, g: 0, b: 0, a: 0}
+  maxMoonIntensity: 0.2
+  dayAmbientLight: {r: 0.84276724, g: 0.64612156, b: 0, a: 0.8392157}
+  nightAmbientLight: {r: 0, g: 0.33620128, b: 0.78616345, a: 0.83137256}
   volume: {fileID: 0}
   skyboxMaterial: {fileID: 2100000, guid: 44de4f36d70e3db4aaeb57219b3ae1eb, type: 2}
   dial: {fileID: 541925234}
@@ -1830,8 +1832,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904095708}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1920,7 +1922,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 2
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 5500
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
