@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 698453528}
   - component: {fileID: 698453529}
   - component: {fileID: 698453530}
+  - component: {fileID: 698453531}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -221,11 +222,87 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: af6ddc0c-93a2-48df-924e-142d155937cd
     m_ActionName: 'Gameplay/Submit[/Keyboard/e,/Keyboard/space,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 698453529}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: MouseDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7aefcf5b-e7e7-41ee-8445-6983878646e7
+    m_ActionName: 'Gameplay/LeftMouse[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 698453529}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: OnePressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 631e971c-66a1-4e90-846f-cc4a65542f74
+    m_ActionName: 'Gameplay/1[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 698453529}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: TwoPressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 698f1173-df8c-4ae4-861f-81e60d0512ab
+    m_ActionName: 'Gameplay/2[/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 698453529}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ThreePressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9e97be44-6c13-40e8-ac4f-fd948cda39bd
+    m_ActionName: 'Gameplay/3[/Keyboard/3]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &698453531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698453527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9d60e592863344fa55c98d2ae7fb49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::mouseinputtest
 --- !u!1 &965598075
 GameObject:
   m_ObjectHideFlags: 0

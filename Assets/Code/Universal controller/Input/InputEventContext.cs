@@ -9,5 +9,6 @@ different usecases of our code such us building ui etc.
 public enum InputEventContext
 {
     DEFAULT,
-    BUILDMODE
+    WALLBUILDMODE,
+    OBJECTBUILDMODE
 }
