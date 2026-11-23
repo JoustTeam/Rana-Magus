@@ -229,7 +229,7 @@ public class PlaceWalls : MonoBehaviour
         //Debug.Log("Placed at: " + midPoint.ToString());
         GameObject newWall = Instantiate(wallPrefab, midPoint, Quaternion.identity); //creating the wall
         newWall.transform.localScale = new Vector3(dist + 0.3f,newWall.transform.localScale.y,newWall.transform.localScale.z); //setting its scale to match the distance
-        newWall.GetComponent<Surface>().setPos(startPos, endPos);
+        newWall.GetComponent<Surface>().setPos(startPos, endPos); //tells it its end and start positions
 
         //setting its rotation
         if (diagonal) //diagonal

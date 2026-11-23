@@ -20,8 +20,9 @@ public class Surface : MonoBehaviour
         timePlaced = Time.deltaTime;
     }
 
-    void OnCollisionEnter(Collision otherCol)
+    void OnCollisionEnter(Collision otherCol) //used to aid merging walls and closing gaps
     {
+        //first check they're both walls
         if (type == SurfaceType.Wall)
         {
             Surface otherSurface = otherCol.gameObject.GetComponent<Surface>();
@@ -29,9 +30,11 @@ public class Surface : MonoBehaviour
             {
                 Transform otherTrans = otherCol.gameObject.GetComponent<Transform>();
 
+                //then grab their rotations
                 float myRotation = transform.localEulerAngles.y;
                 float otherRotation = otherTrans.localEulerAngles.y;
 
+                //and correct for the -45 appearing as 315
                 if (myRotation > 100)
                 {
                     myRotation = 45;
@@ -41,28 +44,30 @@ public class Surface : MonoBehaviour
                     otherRotation = 45;
                 }
 
-                if (transform.localRotation == otherTrans.localRotation)
+                if (transform.localRotation == otherTrans.localRotation) //if the rotations are the same, they're part of the same wall
                 {
-                    Debug.Log("Same Wall");
+                    //Debug.Log("Same Wall");
 
-                    if (timePlaced < otherSurface.timePlaced)
+                    if (timePlaced < otherSurface.timePlaced) //the older wall calls the function, to avoid both of them calling it
                     {
-                        Debug.Log("I'm calling it");
+                        //Debug.Log("I'm calling it");
                         GridFunctions.MergeWalls(transform, otherTrans);
                     }
                     else
                     {
-                        Debug.Log("I'm stepping back");
+                        //Debug.Log("I'm stepping back");
                     }
                     
-                    Destroy(gameObject);
+                    Destroy(gameObject); //destroy the originals
                 }
-                else if (myRotation != 45 && otherRotation == 45 || myRotation == 45 && otherRotation != 45)
+                else if (myRotation != 45 && otherRotation == 45 || myRotation == 45 && otherRotation != 45) //if it is a straight wall meeting a diagonal one
                 {
+                    //and the walls share an end point (meaning they're connected)
                     if (startPos == otherSurface.startPos || startPos == otherSurface.endPos || endPos == otherSurface.startPos || endPos == otherSurface.endPos)
                     {
-                        if (!shrunk)
+                        if (!shrunk) //and the wall isn't already corrected
                         {
+                            //reduce the size slightly
                             transform.localScale = new Vector3(transform.localScale.x - 0.17f, transform.localScale.y, transform.localScale.z);
                             shrunk = true;
                         }
@@ -84,9 +89,8 @@ public class Surface : MonoBehaviour
         }
     }
 
-    void OnCollisionExit(Collision otherCol)
+    void OnCollisionExit(Collision otherCol)//used to aid closing gaps
     {
-        Debug.Log("called");
         if (type == SurfaceType.Wall)
         {
             Surface otherSurface = otherCol.gameObject.GetComponent<Surface>();
@@ -106,10 +110,11 @@ public class Surface : MonoBehaviour
                     otherRotation = 45;
                 }
 
-                if (myRotation != 45 && otherRotation == 45 || myRotation == 45 && otherRotation != 45)
+                if (myRotation != 45 && otherRotation == 45 || myRotation == 45 && otherRotation != 45) //same logic as above, just skips checking if they share an end point
                 {
                     if (shrunk)
                     {
+                        //increase the size slightly (known bug. this will increase the size, even if the wall has two connections that require it to be shrunk. will get it on it maybe later)
                         transform.localScale = new Vector3(transform.localScale.x + 0.17f, transform.localScale.y, transform.localScale.z);
                         shrunk = false;
                     }
@@ -118,7 +123,7 @@ public class Surface : MonoBehaviour
         }
     }
 
-    public void setPos(Vector3 s, Vector3 e)
+    public void setPos(Vector3 s, Vector3 e) //sets it's start and end positions
     {
         startPos = s;
         endPos = e;
