@@ -30,9 +30,9 @@ public class Surface : MonoBehaviour
             {
                 Transform otherTrans = otherCol.gameObject.GetComponent<Transform>();
 
-                //then grab their rotations
-                float myRotation = transform.localEulerAngles.y;
-                float otherRotation = otherTrans.localEulerAngles.y;
+                //then grab their rotations (rounded to avoid tiny decimals)
+                float myRotation = Mathf.Round(transform.localEulerAngles.y);
+                float otherRotation = Mathf.Round(otherTrans.localEulerAngles.y);
 
                 //and correct for the -45 appearing as 315
                 if (myRotation > 100)
@@ -60,7 +60,7 @@ public class Surface : MonoBehaviour
                     
                     Destroy(gameObject); //destroy the originals
                 }
-                else if (myRotation != 45 && otherRotation == 45 || myRotation == 45 && otherRotation != 45) //if it is a straight wall meeting a diagonal one
+                else if ((myRotation != 45 && otherRotation == 45) || (myRotation == 45 && otherRotation != 45)) //if it is a straight wall meeting a diagonal one
                 {
                     //and the walls share an end point (meaning they're connected)
                     if (startPos == otherSurface.startPos || startPos == otherSurface.endPos || endPos == otherSurface.startPos || endPos == otherSurface.endPos)
