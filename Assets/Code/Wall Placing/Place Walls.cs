@@ -14,6 +14,7 @@ public class PlaceWalls : MonoBehaviour
     [SerializeField] bool xOrz = false; //determines if the line is along the x or z axis (true for z, false for x)
     [SerializeField] bool diagonal = false; //determines if the line is diagonal
     [SerializeField] bool wallPlacingMode = false;
+    [SerializeField] bool validWall = true;
 
     [Header("Prefabs and Objects")]
     [SerializeField] GameObject wallPrefab;
@@ -28,6 +29,7 @@ public class PlaceWalls : MonoBehaviour
         EventsManager.Instance.inputEvents.onMouseDown += mouseClick;
         EventsManager.Instance.inputEvents.onMouseUp += mouseUp;
         EventsManager.Instance.inputEvents.on2Pressed += switchToWallMode;
+        GridFunctions.mergeWall += summonWall;
         resetGhostWall(); //ensures the ghost wall is properly set up
     }
 
@@ -36,6 +38,7 @@ public class PlaceWalls : MonoBehaviour
         EventsManager.Instance.inputEvents.onMouseDown -= mouseClick;
         EventsManager.Instance.inputEvents.onMouseUp -= mouseUp;
         EventsManager.Instance.inputEvents.on2Pressed -= switchToWallMode;
+        GridFunctions.mergeWall -= summonWall;
     }
 
     void Update()
@@ -172,6 +175,15 @@ public class PlaceWalls : MonoBehaviour
 
     void placeWall() //instansiates a wall in the correct location, scale and rotation
     {
+        if (!validWall)
+        {
+            Debug.Log("Invalid Wall");
+            return;
+        }
+
+        startPos.y = 0;
+        endPos.y = 0;
+
         //setting the diagonal angle
         float angleDiagonal = 45;
         if (diagonal) //if the line is diagonal
@@ -197,6 +209,7 @@ public class PlaceWalls : MonoBehaviour
         if (diagonal)
         {
             dist = (startPos - endPos).magnitude;
+            Debug.Log(startPos.ToString() + " - " + endPos.ToString() + " = " + dist.ToString());
         }
         else if (xOrz)
         {
@@ -213,9 +226,10 @@ public class PlaceWalls : MonoBehaviour
         }
 
         midPoint.y = wallPrefab.transform.localScale.y / 2; //setting the y so the walls don't poke through the ground
-        Debug.Log("Placed at: " + midPoint.ToString());
+        //Debug.Log("Placed at: " + midPoint.ToString());
         GameObject newWall = Instantiate(wallPrefab, midPoint, Quaternion.identity); //creating the wall
-        newWall.transform.localScale = new Vector3(dist,newWall.transform.localScale.y,newWall.transform.localScale.z); //setting its scale to match the distance
+        newWall.transform.localScale = new Vector3(dist + 0.3f,newWall.transform.localScale.y,newWall.transform.localScale.z); //setting its scale to match the distance
+        newWall.GetComponent<Surface>().setPos(startPos, endPos);
 
         //setting its rotation
         if (diagonal) //diagonal
@@ -351,5 +365,13 @@ public class PlaceWalls : MonoBehaviour
         drawingGhost = false; //stop placing the ghost wall
         ghostWall.transform.localScale = new Vector3(1,1.5f,0.3f); //reset its scale
         ghostWall.SetActive(false); //deactivate it
+    }
+
+    void summonWall(Vector3 midPoint, float scale, float rotation, Vector3 startPos, Vector3 endPos)
+    {
+        GameObject newWall = Instantiate(wallPrefab, midPoint, Quaternion.identity);
+        newWall.transform.localScale = new Vector3(scale,newWall.transform.localScale.y,newWall.transform.localScale.z);
+        newWall.transform.localEulerAngles = new Vector3(0,rotation,0);
+        newWall.GetComponent<Surface>().setPos(startPos, endPos);
     }
 }

@@ -489,6 +489,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3b4f1ccf-e194-4ee8-aac2-0e0e34a52352
     m_ActionName: 'Gameplay/SelectObject[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 611180825}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: CancelPressed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cd2cf256-8ed0-41b4-872f-aea0ed5939b7
+    m_ActionName: 'Gameplay/CancelObjectSelection[/Mouse/middleButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -614,7 +630,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 16.59, y: -0.07, z: 20.61}
+  m_LocalScale: {x: 16.59, y: 0.07, z: 20.61}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -632,6 +648,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Surface
   type: 0
+  timePlaced: 0
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1010391324
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,6 +688,7 @@ MonoBehaviour:
   xOrz: 0
   diagonal: 0
   wallPlacingMode: 0
+  validWall: 1
   wallPrefab: {fileID: 7354805393892472383, guid: 56eeed1c42de6bc4f9637c576685dbb4, type: 3}
   ghostWall: {fileID: 1791600832}
   startPos: {x: 0, y: 0, z: 0}
@@ -1009,9 +1029,9 @@ Transform:
   m_GameObject: {fileID: 1139522471}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.54, z: -5.81}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.5, y: 0.54, z: -9.58}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1103,6 +1123,7 @@ GameObject:
   - component: {fileID: 1791600836}
   - component: {fileID: 1791600835}
   - component: {fileID: 1791600834}
+  - component: {fileID: 1791600837}
   m_Layer: 0
   m_Name: ghost wall
   m_TagString: Untagged
@@ -1182,6 +1203,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1791600837
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791600832}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
