@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//Comment to get git to notice the files
 public enum WallMode { WallsUp, Cutaway, WallsDown }
 public enum WallState { Full, Cutaway, Hidden }
 

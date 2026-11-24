@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+//Comment to get git to notice the files
 public class WallTestBuilder : MonoBehaviour
 {
     [SerializeField] private WallSegment wallPrefab; 

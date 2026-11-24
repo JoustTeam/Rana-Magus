@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+//Comment to get git to notice the files
 public class WallManager : MonoBehaviour
 {
     private static readonly List<WallSegment> walls = new List<WallSegment>();

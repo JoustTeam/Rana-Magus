@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//Comment to get git to notice the files
 [CreateAssetMenu(menuName = "Walls/Wall Style")]
 public class WallStyle : ScriptableObject
 {

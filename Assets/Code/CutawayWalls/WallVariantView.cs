@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//Comment to get git to notice the files
 public class WallVariantView : MonoBehaviour
 {
     [SerializeField] private Transform startCap;
