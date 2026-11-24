@@ -50,30 +50,67 @@ public class PlaceableObject : MonoBehaviour
     [Header("DEBUG ONLY - Remove Later")]
     [SerializeField] private TextMeshProUGUI EditableText;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    //adding listeners to event managers (for input)
+    void OnEnable()
+    {
+        EventsManager.Instance.inputEvents.onMouseDown += callCheckMousePosition;
+        EventsManager.Instance.inputEvents.onRotatePressed += callRotateObject;
+        EventsManager.Instance.inputEvents.onSelectObjectPressed += StartMoving;
+    }
+
+    void OnDisable()
+    {
+        EventsManager.Instance.inputEvents.onMouseDown -= callCheckMousePosition;
+        EventsManager.Instance.inputEvents.onRotatePressed -= callRotateObject;
+        EventsManager.Instance.inputEvents.onSelectObjectPressed -= StartMoving;
+    }
+
     void Start()
     {
-        //Check if the mouse cursor is valid
-
-        _mouseAction = InputSystem.actions.FindAction("Select");
-        _startMovingAction = InputSystem.actions.FindAction("StartMove");
-        _rotateAction = InputSystem.actions.FindAction("Rotate");
-        _printInfoAction = InputSystem.actions.FindAction("PrintInfo");
-        _deleteAction = InputSystem.actions.FindAction("Delete");
-        _duplicateAction = InputSystem.actions.FindAction("Duplicate");
-        _cancelAction = InputSystem.actions.FindAction("Cancel");
-
         Debug.Log("Current layer: " + gameObject.layer);
-
-        EditableText.text = "Currently Selected : NONE";
 
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (isClickedOn)
+        {
+            updateMousePosition();
+            moveObject();
+        }
+    }
 
-        if (_startMovingAction.WasReleasedThisFrame())
+    //Input Functions
+    void callCheckMousePosition(InputEventContext iec) //detects left mouse button and deligates picking up an object and placing it down
+    {
+        if (iec == InputEventContext.OBJECTBUILDMODE)
+        {
+            if (isClickedOn)
+            {
+                CancelObjectMovement();
+            }
+            else if (isMoving)
+            {
+                CheckMousePosition();
+            }
+        }
+        
+    }
+
+    void callRotateObject(InputEventContext iec) //detects rotation
+    {
+        if (iec == InputEventContext.OBJECTBUILDMODE)
+        {
+            if (isClickedOn)
+            {
+                RotateObject();
+            }
+        }
+    }
+
+    void StartMoving(InputEventContext iec) //changes the isMoving flag
+    {
+        if (iec == InputEventContext.OBJECTBUILDMODE)
         {
             isMoving = !isMoving;
             if (isMoving)
@@ -86,28 +123,9 @@ public class PlaceableObject : MonoBehaviour
                 
             }
         }
-
-        if (isMoving && _mouseAction.WasReleasedThisFrame())
-        {
-            CheckMousePosition();
-        }
-
-        if (_cancelAction.WasReleasedThisFrame() && isClickedOn)
-        {
-            CancelObjectMovement();
-        }
-
-        if (isClickedOn)
-        {
-            updateMousePosition();
-            moveObject();
-        }
-
-        if (_rotateAction.WasReleasedThisFrame() && isClickedOn)
-        {
-            RotateObject();
-        }
+        
     }
+
 
     //Public Functions
 
@@ -199,7 +217,7 @@ public class PlaceableObject : MonoBehaviour
 
                     gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
                     Debug.Log("Current layer: " + gameObject.layer);
-                    EditableText.text = "Currently Selected : " + name;
+                    //EditableText.text = "Currently Selected : " + name;
                 }
                 else
                 {
@@ -272,7 +290,7 @@ public class PlaceableObject : MonoBehaviour
 
         gameObject.layer = LayerMask.NameToLayer("Default");
         Debug.Log("Current layer: " + gameObject.layer);
-        EditableText.text = "Currently Selected : NONE";
+        //EditableText.text = "Currently Selected : NONE";
 
     }
 
