@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+//Comment to get git to notice the files
 public class IsometricCameraRotation : MonoBehaviour
 {
     public float rotationSpeed = 50;

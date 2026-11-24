@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+//Comment to get git to notice the files
 public class IsometricCameraPanner : MonoBehaviour
 {
     public float panningSpeed = 20f;
