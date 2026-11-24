@@ -1,15 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-//Comment to get git to notice the files
+
 public class IsometricCameraPanner : MonoBehaviour
 {
     public float panningSpeed = 20f;
 
+    public BoxCollider cameraBounds;
+
     private Camera mainCam;
-
-    public Vector2 panLimitX;
-    public Vector2 panLimitZ;
-
     private Vector2 positionPan;
 
     private void Awake()
@@ -24,12 +22,17 @@ public class IsometricCameraPanner : MonoBehaviour
             * new Vector3(positionPan.x, 0, positionPan.y)
             * (panningSpeed * Time.deltaTime);
 
-        // Panning Limits / Camera Bounds
-        transform.position = new Vector3(
-            Mathf.Clamp(transform.position.x, panLimitX.x, panLimitX.y),
-            transform.position.y,
-            Mathf.Clamp(transform.position.z, panLimitZ.x, panLimitZ.y)
-        );
+        // Restricts camera movement to the box volume
+        if (cameraBounds != null)
+        {
+            Vector3 position = transform.position;
+            Bounds bounds = cameraBounds.bounds;
+
+            position.x = Mathf.Clamp(position.x, bounds.min.x, bounds.max.x);
+            position.z = Mathf.Clamp(position.z, bounds.min.z, bounds.max.z);
+
+            transform.position = position;
+        }
     }
 
     // Reads Keyboard Inputs
@@ -38,3 +41,4 @@ public class IsometricCameraPanner : MonoBehaviour
         positionPan = context.ReadValue<Vector2>();
     }
 }
+

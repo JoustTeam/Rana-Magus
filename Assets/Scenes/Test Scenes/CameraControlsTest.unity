@@ -1381,6 +1381,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bff15d26-55cb-4fd7-b684-cea8c6a616df
     m_ActionName: 'Player/MouseMove[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f1834b1b-e9b3-4443-a0e6-289318f4174b
+    m_ActionName: Placeholder/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1415,7 +1419,7 @@ MonoBehaviour:
   zoomSmoothness: 5
   minZoom: 20
   maxZoom: 80
-  camPitch: 3
+  camPitch: 5
   rotationStartZoom: 45
   camLowerAmount: 5
 --- !u!114 &2105980869
