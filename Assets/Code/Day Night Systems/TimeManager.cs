@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -12,6 +13,11 @@ public class TimeManager : MonoBehaviour
     [Header("Directional Lights")]
     [SerializeField] Light sun;
     [SerializeField] Light moon;
+
+    [Header("Light direction")]
+    [Range(0f, 360f)]
+    [SerializeField] float lightYaw;
+    [SerializeField] bool rotateMoon = true;
 
     [Header("Speed Of Light Change Between Lights")]
     [SerializeField] AnimationCurve lightIntensityCurve;
@@ -82,7 +88,9 @@ public class TimeManager : MonoBehaviour
     void RotateSun()
     {
         float rotation = service.CalculateSunAngle();
-        sun.transform.rotation = Quaternion.AngleAxis(rotation, Vector3.right);
+        sun.transform.rotation = Quaternion.Euler(rotation, lightYaw, 0f);
+        if (rotateMoon && moon != null)
+        moon.transform.rotation = Quaternion.Euler(rotation + 180f, lightYaw, 0f);
 
         dial.rotation = Quaternion.Euler(0, 0, rotation + initialDialRotation);
     }
