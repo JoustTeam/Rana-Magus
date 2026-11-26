@@ -14,7 +14,6 @@ public class PlaceWalls : MonoBehaviour
     [SerializeField] bool xOrz = false; //determines if the line is along the x or z axis (true for z, false for x)
     [SerializeField] bool diagonal = false; //determines if the line is diagonal
     [SerializeField] bool wallPlacingMode = false;
-    [SerializeField] bool validWall = true;
 
     [Header("Prefabs and Objects")]
     [SerializeField] GameObject wallPrefab;
@@ -101,7 +100,7 @@ public class PlaceWalls : MonoBehaviour
 
             if (startPos == endPos) //if the start and end positions are the same, there is no wall
             {
-                Debug.Log("not in line");
+                //Debug.Log("not in line");
                 placingWall = false;
                 return;
             }
@@ -147,20 +146,20 @@ public class PlaceWalls : MonoBehaviour
                 {
                     if (xDiff != zDiff) //and the gradient isn't 1 (aka the pointer has drifted off course)
                     {
-                        Debug.Log("DRIFTED");
+                        //Debug.Log("DRIFTED");
                         //use the ghost wall's position instead of the pointer's
                         endPos = 2*ghostWall.transform.position - startPos;
                     }
                 }
                 else if (xOrz && startPos.z != endPos.z) //if the line is along the z axis, but the z coords do not match
                 {
-                    Debug.Log("DRIFTED");
+                    //Debug.Log("DRIFTED");
                     //use the z of the start position
                     endPos = new Vector3(endPos.x, endPos.y, startPos.z);
                 }
                 else if (!xOrz && startPos.x != endPos.x) //if the line is along the x axis, but the x coords do not match
                 {
-                    Debug.Log("DRIFTED");
+                    //Debug.Log("DRIFTED");
                     //use the x of the start position
                     endPos = new Vector3(startPos.x, endPos.y, endPos.z);
                 }
@@ -175,12 +174,6 @@ public class PlaceWalls : MonoBehaviour
 
     void placeWall() //instansiates a wall in the correct location, scale and rotation
     {
-        if (!validWall)
-        {
-            Debug.Log("Invalid Wall");
-            return;
-        }
-
         startPos.y = 0;
         endPos.y = 0;
 
@@ -209,7 +202,7 @@ public class PlaceWalls : MonoBehaviour
         if (diagonal)
         {
             dist = (startPos - endPos).magnitude;
-            Debug.Log(startPos.ToString() + " - " + endPos.ToString() + " = " + dist.ToString());
+            //Debug.Log(startPos.ToString() + " - " + endPos.ToString() + " = " + dist.ToString());
         }
         else if (xOrz)
         {
@@ -248,6 +241,13 @@ public class PlaceWalls : MonoBehaviour
         //reset the flags
         placingWall = false;
         diagonal = false;
+
+        Vector3 dir = new Vector3(0,0,0);
+
+        if (diagonal || xOrz) dir = new Vector3(1,0,0);
+        else dir = new Vector3(0,0,1);
+
+        GridFunctions.DetectRoom(midPoint, dir);
     }
 
     void drawGhost() //draws a ghost wall
