@@ -165,7 +165,7 @@ public static class GridFunctions //stores the grid layout reference for other s
         return returnValue;
     }
 
-    public static void DetectRoom(Vector3 startPos, Vector3 startDirection)
+    public static void DetectRoomFloodFill(Vector3 startPos, Vector3 startDirection) //turn into a floodfill to find all the cells in a room row by row rather than sprial
     {
         Debug.Log("Looking for room");
         Debug.Log(worldBounds.max);
@@ -260,5 +260,82 @@ public static class GridFunctions //stores the grid layout reference for other s
         }
 
         Debug.Log(currentPos);
+    }
+
+    public static void DetectRoom(Surface startWall) //finds a room based on connecting walls
+    {
+        Debug.Log("LOOKING FOR ROOM");
+        List<Surface> connectingWalls = new List<Surface>();
+        List<Surface> uncheckedWalls = new List<Surface>();
+        bool foundLoop = false;
+
+        connectingWalls.Add(startWall);
+        uncheckedWalls = addNeighbours(uncheckedWalls, startWall, connectingWalls);
+
+        while (uncheckedWalls.Count > 0)
+        {
+            Debug.Log("ENTERED LOOP");
+            if (startWall == null)
+            {
+                Debug.Log("Start wall has been destroyed");
+                return;
+            }
+
+            Surface currentWall = uncheckedWalls[0];
+            //Debug.Log("Current: " + currentWall.gameObject.transform.position.ToString());
+
+            uncheckedWalls = addNeighbours(uncheckedWalls, currentWall, connectingWalls);
+            connectingWalls.Add(currentWall);
+            uncheckedWalls.Remove(currentWall);
+
+            if (uncheckedWalls.Contains(startWall) && connectingWalls.Count > 2)
+            {
+                Debug.Log("Found start");
+                foundLoop = true;
+                uncheckedWalls.Remove(startWall);
+            }
+            else if (uncheckedWalls.Contains(startWall) && connectingWalls.Count <= 2)
+            {
+                uncheckedWalls.Remove(startWall);
+            }
+        }
+
+        Debug.Log(foundLoop);
+        Debug.Log(startWall.gameObject.transform.position);
+        string d = "{ ";
+        foreach (Surface s in connectingWalls)
+        {
+            d += s.gameObject.transform.position.ToString() + ", ";
+        }
+        d += " }";
+        Debug.Log(d);
+    }
+
+    static List<Surface> addNeighbours(List<Surface> uncheckedWalls, Surface currentWall, List<Surface> connectingWalls)
+    {
+        List<Surface> newNeighbours = currentWall.getNeighbours();
+        Debug.Log(newNeighbours.Count);
+
+        if (newNeighbours.Count > 0)
+        {
+            Debug.Log("Found neighbours");
+            foreach(Surface s in newNeighbours)
+            {
+                if (s == connectingWalls[0])
+                {
+                    uncheckedWalls.Add(s);
+                }
+                else if (!uncheckedWalls.Contains(s) && !connectingWalls.Contains(s))
+                {
+                    uncheckedWalls.Add(s);
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Lone wall");
+        }
+
+        return uncheckedWalls;
     }
 }

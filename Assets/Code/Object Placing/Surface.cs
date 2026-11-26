@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum SurfaceType
 {
@@ -14,10 +15,12 @@ public class Surface : MonoBehaviour
     public Vector3 startPos;
     public Vector3 endPos;
     bool  shrunk;
+    [SerializeField] List<Surface> adjacentWalls;
 
     void Start()
     {
         timePlaced = Time.deltaTime;
+        adjacentWalls = new List<Surface>();
     }
 
     void OnCollisionEnter(Collision otherCol) //used to aid merging walls and closing gaps
@@ -28,6 +31,8 @@ public class Surface : MonoBehaviour
             Surface otherSurface = otherCol.gameObject.GetComponent<Surface>();
             if (otherSurface.type == SurfaceType.Wall)
             {
+                adjacentWalls.Add(otherSurface);
+
                 Transform otherTrans = otherCol.gameObject.GetComponent<Transform>();
 
                 //then grab their rotations (rounded to avoid tiny decimals)
@@ -75,7 +80,7 @@ public class Surface : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("We're both walls, but not the same wall");
+                    //Debug.Log("We're both walls, but not the same wall");
                 }
             }
             else
@@ -96,6 +101,8 @@ public class Surface : MonoBehaviour
             Surface otherSurface = otherCol.gameObject.GetComponent<Surface>();
             if (otherSurface.type == SurfaceType.Wall)
             {
+                adjacentWalls.Remove(otherSurface);
+
                 Transform otherTrans = otherCol.gameObject.GetComponent<Transform>();
 
                 float myRotation = transform.localEulerAngles.y;
@@ -127,5 +134,18 @@ public class Surface : MonoBehaviour
     {
         startPos = s;
         endPos = e;
+    }
+
+    public List<Surface> getNeighbours()
+    {
+        for (int i=0 ; i<adjacentWalls.Count ; i++)
+        {
+            if (adjacentWalls[i] == null)
+            {
+                adjacentWalls.RemoveAt(i);
+            }
+        }
+
+        return adjacentWalls;
     }
 }

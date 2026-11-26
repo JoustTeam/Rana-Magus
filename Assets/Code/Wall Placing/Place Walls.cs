@@ -247,8 +247,10 @@ public class PlaceWalls : MonoBehaviour
         if (diagonal || xOrz) dir = new Vector3(1,0,0);
         else dir = new Vector3(0,0,1);
 
-        GridFunctions.DetectRoom(midPoint, dir);
+        StartCoroutine(delayDetectRoom(newWall.GetComponent<Surface>()));
     }
+
+
 
     void drawGhost() //draws a ghost wall
     {
@@ -373,5 +375,13 @@ public class PlaceWalls : MonoBehaviour
         newWall.transform.localScale = new Vector3(scale,newWall.transform.localScale.y,newWall.transform.localScale.z);
         newWall.transform.localEulerAngles = new Vector3(0,rotation,0);
         newWall.GetComponent<Surface>().setPos(startPos, endPos);
+
+        StartCoroutine(delayDetectRoom(newWall.GetComponent<Surface>()));
+    }
+
+    IEnumerator delayDetectRoom(Surface wall)
+    {
+        yield return new WaitForSeconds(0.2f);
+        GridFunctions.DetectRoom(wall);
     }
 }
